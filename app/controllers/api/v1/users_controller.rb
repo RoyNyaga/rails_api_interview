@@ -27,7 +27,9 @@ module Api
             auth_token: command.result
           }
         else
-          render json: @user.errors, status: :unprocessable_entity
+          render status: 400, json: {
+            error: @user.errors.full_messages
+          }
         end
       end
 
