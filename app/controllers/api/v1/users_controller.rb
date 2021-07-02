@@ -19,9 +19,8 @@ module Api
       # POST /users
       def create
         @user = User.new(user_params)
-
         if @user.save
-          command = AuthenticateUser.call(params[:phone], params[:password])
+          command = AuthenticateUser.call(params[:user][:email], params[:user][:password])
           render status: 200, json: {
             user: @user,
             auth_token: command.result
@@ -55,7 +54,7 @@ module Api
 
         # Only allow a list of trusted parameters through.
         def user_params
-          params.require(:user).permit(:name, :email, :password_digest)
+          params.require(:user).permit(:name, :email, :password, :password_confirmation)
         end
     end
   end
