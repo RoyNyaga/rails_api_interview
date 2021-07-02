@@ -38,6 +38,6 @@ module RailsApiInterview
     config.api_only = true
 
     # Added lines
-    config.autoload_paths << Rails.root.join('lib')
+    config.autoload_paths += Dir[Rails.root.join('lib', '*')]
   end
 end
