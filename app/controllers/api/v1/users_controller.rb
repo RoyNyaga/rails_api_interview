@@ -21,7 +21,11 @@ module Api
         @user = User.new(user_params)
 
         if @user.save
-          render json: @user, status: :created, location: @user
+          command = AuthenticateUser.call(params[:phone], params[:password])
+          render status: 200, json: {
+            user: @user,
+            auth_token: command.result
+          }
         else
           render json: @user.errors, status: :unprocessable_entity
         end
