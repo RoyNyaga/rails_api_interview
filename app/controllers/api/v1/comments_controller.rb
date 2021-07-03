@@ -38,6 +38,7 @@ module Api
       # DELETE /comments/1
       def destroy
         @comment.destroy
+        render status: 200, json: { message: "comment was successfully deleted"}
       end
     
       private
