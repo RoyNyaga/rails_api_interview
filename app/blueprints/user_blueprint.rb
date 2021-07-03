@@ -8,6 +8,5 @@ class UserBlueprint < Blueprinter::Base
     field :name
     field :email
     association :posts, blueprint: PostBlueprint
-    association :comments, blueprint: CommentBlueprint
 
 end 
