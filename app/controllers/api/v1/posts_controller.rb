@@ -14,8 +14,12 @@ module Api
 
       # GET /posts/1
       def show
-        serialize_post = PostBlueprint.render(@post, view: :show)
-        render status: 200, json: serialize_post
+        if @post 
+          serialize_post = PostBlueprint.render(@post, view: :show)
+          render status: 200, json: serialize_post
+        else
+          render status: 400, json: { message: "post not found" }
+        end 
       end
 
       # POST /posts
