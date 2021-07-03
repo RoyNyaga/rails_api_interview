@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       post 'authenticate', to: 'authentication#authenticate'
       resources :users
       resources :posts
+      resources :comments
     end 
   end
 end
