@@ -8,4 +8,6 @@ class User < ApplicationRecord
   message: "please enter a correct email format (ex: youname@gmail.com" }
   validates :password, length: { minimum: 5 }, presence: true 
   validates :name, presence: true
+
+  
 end

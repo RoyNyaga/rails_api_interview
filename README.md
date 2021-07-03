@@ -25,6 +25,6 @@ This is an API build with ruby on rails. It is made up of three resources which 
 ### usage
 You will need `curl` or any other application for making request to the server.
 #### End points
-NB: All of the endpoints will require authentication except for the `/authenticate` and get `users`.
-NB: Users need to be Admin in other to be able to develete resouces
+- NBi: All of the endpoints will require authentication except for the `/authenticate` and get `users`.
+- NBii: Users need to be Admin in other to be able to delete resouces
 
