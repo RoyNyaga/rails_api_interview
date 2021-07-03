@@ -1,7 +1,7 @@
 module Api
   module V1 
     class UsersController < ApplicationController
-      skip_before_action :authenticate_request, only: [:create, :index, :show]
+      skip_before_action :authenticate_request, only: [:create, :index]
       before_action :set_user, only: [:show, :update, :destroy]
 
       # GET /users
@@ -19,6 +19,7 @@ module Api
 
       # POST /users
       def create
+        
         @user = User.new(user_params)
         if @user.save
           command = AuthenticateUser.call(params[:user][:email], params[:user][:password])
