@@ -1,8 +1,8 @@
 module Api
   module V1 
     class UsersController < ApplicationController
-      skip_before_action :authenticate_request, only: [:create, :index]
-      before_action :set_user, only: [:show, :update, :destroy]
+      skip_before_action :authenticate_request, only: [:create, :index, :add_admin]
+      before_action :set_user, only: [:show, :update, :destroy, :add_admin]
 
       # GET /users
       def index
@@ -10,6 +10,11 @@ module Api
         @serialized_users = UserBlueprint.render(@users, view: :index)
         render status: 200, json: @serialized_users
       end
+
+      def add_admin
+        @user.update_attribute(:is_admin,true)
+        render status: 200, json: {message: "Congratulations!! #{@user.name} is now an admin user"}
+      end 
 
       # GET /users/1
       def show
@@ -45,7 +50,12 @@ module Api
 
       # DELETE /users/1
       def destroy
-        @user.destroy
+        if @current_user.is_admin 
+          @user.destroy
+          render status: 200, json: { message: "user has been deleted"}
+        else
+          render status: 401, json: { message: "Only admins have the authorization to delete users" }
+        end 
       end
 
       private
