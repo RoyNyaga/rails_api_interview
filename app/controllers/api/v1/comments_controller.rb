@@ -12,11 +12,7 @@ module Api
     
       # GET /comments/1
       def show
-        if @comment 
-          render status: 200, json: @comment
-        else
-          render status: 404, json: { message: "comment not found" }
-        end 
+        render status: 200, json: @comment
       end
     
       # POST /comments
@@ -48,6 +44,7 @@ module Api
         # Use callbacks to share common setup or constraints between actions.
         def set_comment
           @comment = Comment.find_by(id: params[:id])
+          render status: 404, json: {message: "comment not found"} unless @comment
         end
     
         # Only allow a list of trusted parameters through.
