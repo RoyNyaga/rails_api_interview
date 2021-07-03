@@ -4,9 +4,13 @@ end
 
 class UserBlueprint < Blueprinter::Base
   identifier :id
+  fields :name, :email
 
+  view :index do 
     field :name
     field :email
     association :posts, blueprint: PostBlueprint
+  end 
+
 
 end 
