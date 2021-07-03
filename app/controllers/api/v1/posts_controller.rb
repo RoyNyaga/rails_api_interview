@@ -14,12 +14,8 @@ module Api
 
       # GET /posts/1
       def show
-        if @post 
-          serialize_post = PostBlueprint.render(@post, view: :show)
-          render status: 200, json: serialize_post
-        else
-          render status: 400, json: { message: "post not found" }
-        end 
+        serialize_post = PostBlueprint.render(@post, view: :show)
+        render status: 200, json: serialize_post
       end
 
       # POST /posts
@@ -51,6 +47,7 @@ module Api
         # Use callbacks to share common setup or constraints between actions.
         def set_post
           @post = Post.find_by(id: params[:id])
+          render status: 404, json: {message: "post not found"} unless @post
         end
 
         # Only allow a list of trusted parameters through.
