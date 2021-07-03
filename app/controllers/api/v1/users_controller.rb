@@ -1,14 +1,14 @@
 module Api
   module V1 
     class UsersController < ApplicationController
-      skip_before_action :authenticate_request, only: [:create]
+      skip_before_action :authenticate_request, only: [:create, :index]
       before_action :set_user, only: [:show, :update, :destroy]
 
       # GET /users
       def index
         @users = User.all
-
-        render json: @users
+        @serialized_users = UserBlueprint.render(@users)
+        render json: @serialized_users
       end
 
       # GET /users/1
