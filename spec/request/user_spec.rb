@@ -32,7 +32,7 @@ RSpec.describe "users", type: :request do
             password_confirmation: "123456789"
           }
         }
-        expect(response).to have_http_status(400)
+        expect(response).to have_http_status(422)
       end 
     end
     

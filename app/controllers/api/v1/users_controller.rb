@@ -13,8 +13,13 @@ module Api
 
       # GET /users/1
       def show
-        @serialized_user = UserBlueprint.render(@user, view: :index)
-        render status: 200, json: @serialized_user
+        if @user 
+          @serialized_user = UserBlueprint.render(@user, view: :index)
+          render status: 200, json: @serialized_user
+        else
+          render status: 404, json: { message: "user not foind" }
+        end
+        
       end
 
       # POST /users
@@ -28,7 +33,7 @@ module Api
             auth_token: command.result
           }
         else
-          render status: 400, json: {
+          render status: 422, json: {
             error: @user.errors.full_messages
           }
         end
