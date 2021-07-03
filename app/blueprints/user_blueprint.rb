@@ -9,6 +9,7 @@ class UserBlueprint < Blueprinter::Base
   view :index do 
     field :name
     field :email
+    field :is_admin
     association :posts, blueprint: PostBlueprint
   end 
 
