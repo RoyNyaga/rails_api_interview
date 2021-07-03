@@ -13,13 +13,8 @@ module Api
 
       # GET /users/1
       def show
-        if @user 
-          @serialized_user = UserBlueprint.render(@user, view: :index)
-          render status: 200, json: @serialized_user
-        else
-          render status: 404, json: { message: "user not foind" }
-        end
-        
+        @serialized_user = UserBlueprint.render(@user, view: :index)
+        render status: 200, json: @serialized_user 
       end
 
       # POST /users
@@ -57,6 +52,7 @@ module Api
         # Use callbacks to share common setup or constraints between actions.
         def set_user
           @user = User.find_by(id: params[:id])
+          render status: 404, json: { message: "User not found" } unless @user 
         end
 
         # Only allow a list of trusted parameters through.
