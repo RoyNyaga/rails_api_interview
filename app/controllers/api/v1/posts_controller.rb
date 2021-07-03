@@ -2,19 +2,19 @@ module Api
   module V1 
     class PostsController < ApplicationController
       before_action :set_post, only: [:show, :update, :destroy]
-      skip_before_action :authenticate_request, only: [:show]
+      skip_before_action :authenticate_request, only: [:show, :index]
 
 
       # GET /posts
       def index
         @posts = Post.all
-
-        render json: @posts
+        @serialized_posts = PostBlueprint.render(@posts)
+        render status: 200, json: @serialized_posts
       end
 
       # GET /posts/1
       def show
-        serialize_post = PostBlueprint.render(@post)
+        serialize_post = PostBlueprint.render(@post, view: :show)
         render status: 200, json: serialize_post
       end
 
