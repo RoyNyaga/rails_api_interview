@@ -12,7 +12,11 @@ module Api
     
       # GET /comments/1
       def show
-        render json: @comment
+        if @comment 
+          render status: 200, json: @comment
+        else
+          render status: 404, json: { message: "comment not found" }
+        end 
       end
     
       # POST /comments
@@ -20,7 +24,7 @@ module Api
         @comment = Comment.new(comment_params)
     
         if @comment.save
-          render json: @comment, status: :created, location: @comment
+          render json: @comment, status: :created
         else
           render json: @comment.errors, status: :unprocessable_entity
         end
